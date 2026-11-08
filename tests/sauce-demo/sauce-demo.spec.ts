@@ -7,8 +7,8 @@ import { LoginPage } from './pages/login.page';
 import { ProductPage } from './pages/product.page';
 import { createCheckoutUser, productTitle } from './sauce-demo.data';
 
-test.describe('Авторизация', () => {
-  test('Пользователь входит с правильными данными', async ({ page }) => {
+test.describe('Authorization', () => {
+  test('User logs in with valid credentials', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
 
@@ -18,7 +18,7 @@ test.describe('Авторизация', () => {
     await expect(inventoryPage.locators.pageTitleLocator).toBeVisible();
   });
 
-  test('Пользователь не входит с неправильным паролем', async ({ page }) => {
+  test('User cannot log in with an invalid password', async ({ page }) => {
     const loginPage = new LoginPage(page);
 
     await loginPage.open();
@@ -30,8 +30,8 @@ test.describe('Авторизация', () => {
   });
 });
 
-test.describe('Товары', () => {
-  test('Пользователь открывает страницу товара', async ({ page }) => {
+test.describe('Products', () => {
+  test('User opens a product page', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
     const productPage = new ProductPage(page);
@@ -42,7 +42,7 @@ test.describe('Товары', () => {
     await expect(productPage.locators.nameLocator).toHaveText(productTitle);
   });
 
-  test('Пользователь сортирует товары', async ({ page }) => {
+  test('User sorts products', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
 
@@ -57,8 +57,8 @@ test.describe('Товары', () => {
   });
 });
 
-test.describe('Корзина и заказ', () => {
-  test('Пользователь добавляет товар в корзину', async ({ page }) => {
+test.describe('Cart and checkout', () => {
+  test('User adds a product to the cart', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
     const cartPage = new CartPage(page);
@@ -70,7 +70,7 @@ test.describe('Корзина и заказ', () => {
     await expect(cartPage.products.getProductByTitle(productTitle)).toBeVisible();
   });
 
-  test('Пользователь удаляет товар из корзины', async ({ page }) => {
+  test('User removes a product from the cart', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
     const cartPage = new CartPage(page);
@@ -85,7 +85,7 @@ test.describe('Корзина и заказ', () => {
     await expect(cartPage.products.getProductByTitle(productTitle)).toHaveCount(0);
   });
 
-  test('Пользователь оформляет заказ', async ({ page }) => {
+  test('User completes checkout', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
     const cartPage = new CartPage(page);
